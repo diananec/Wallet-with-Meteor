@@ -15,46 +15,62 @@ export const ContactForm = () => {
         setName();
         setEmail();
         setImageURL();
-
-        /*event.preventDefault();
-        const contact = {
-            name: event.target.name.value,
-            email: event.target.email.value,
-            imageURL: event.target.imageURL.value,
-        };
-        console.log(contact);*/
     };
     return (
-        <form>
-            <div>
-                <label htmlFor="name">Name</label>
-                <input
-                    value={name}
-                    id="name"
-                    onChange={(e) => setName(e.target.value)}
-                    type="text"
-                />
+        <form className="mt-6">
+            <div className="grid grid-cols-6 gap-6">
+                <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                    <label
+                        className="block text-sm font-medium text-gray-700"
+                        htmlFor="name"
+                    >
+                        Name
+                    </label>
+                    <input
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value={name}
+                        id="name"
+                        onChange={(e) => setName(e.target.value)}
+                        type="text"
+                    />
+                </div>
+                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <label
+                        className="block text-sm font-medium text-gray-700"
+                        htmlFor="email"
+                    >
+                        E-mail
+                    </label>
+                    <input
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value={email}
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        id="email"
+                    />
+                </div>
+                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                    <label
+                        className="block text-sm font-medium text-gray-700"
+                        htmlFor="imageURL"
+                    >
+                        Image URL
+                    </label>
+                    <input
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value={imageURL}
+                        type="text"
+                        onChange={(e) => setImageURL(e.target.value)}
+                        id="imageURL"
+                    />
+                </div>
             </div>
-            <div>
-                <label htmlFor="email">E-mail</label>
-                <input
-                    value={email}
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    id="email"
-                />
-            </div>
-            <div>
-                <label htmlFor="imageURL">Image URL</label>
-                <input
-                    value={imageURL}
-                    type="text"
-                    onChange={(e) => setImage(e.target.value)}
-                    id="imageURL"
-                />
-            </div>
-            <div>
-                <button type="submit" onClick={saveContact}>
+            <div className="px-2 py-3 text-right">
+                <button
+                    className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                    type="submit"
+                    onClick={saveContact}
+                >
                     Save Contact
                 </button>
             </div>

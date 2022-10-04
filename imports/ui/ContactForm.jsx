@@ -16,14 +16,14 @@ export const ContactForm = () => {
     const showError = ({ message }) => {
         setError(message);
         setTimeout(() => {
-            setError(null);
+            setError("");
         }, 5000);
     };
 
     const showSuccess = ({ message }) => {
         setSuccess(message);
         setTimeout(() => {
-            setSuccess(null);
+            setSuccess("");
         }, 5000);
     };
 

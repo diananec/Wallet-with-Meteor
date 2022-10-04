@@ -8,8 +8,20 @@ import { useTracker } from "meteor/react-meteor-data";
 
 export const ContactList = () => {
     const contacts = useTracker(() => {
-        return ContactsCollection.find({}).fetch();
+        return ContactsCollection.find(
+            {},
+            {
+                sort: {
+                    createdAt: -1,
+                },
+            }
+        ).fetch();
     }); // Tracker
+
+    const removeContact = (event, _id) => {
+        event.preventDefault();
+        Meteor.call("contacts.remove", { contactId: _id });
+    };
 
     return (
         <div>
@@ -41,6 +53,17 @@ export const ContactList = () => {
                                     <p className="text-sm font-medium text-gray-500 truncate">
                                         {person.email}
                                     </p>
+                                </div>
+                                <div>
+                                    <a
+                                        href="#"
+                                        onClick={(event) =>
+                                            removeContact(event, person._id)
+                                        }
+                                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                                    >
+                                        Remove
+                                    </a>
                                 </div>
                             </div>
                         </li>

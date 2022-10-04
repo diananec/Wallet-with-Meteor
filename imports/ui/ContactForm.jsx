@@ -2,22 +2,46 @@
  * @format
  */
 import React from "react";
-import { ContactsCollection } from "../api/ContactsCollection";
+import { Meteor } from "meteor/meteor";
+import { ErrorAlert } from "./components/ErrorAlerts";
 
 export const ContactForm = () => {
     const [name, setName] = React.useState();
     const [email, setEmail] = React.useState();
     const [imageURL, setImageURL] = React.useState();
+    const [error, setError] = React.useState();
+    const [success, setSuccess] = React.useState();
+
+    const showError = ({ message }) => {
+        setError(message);
+        setTimeout(() => {
+            setError(null);
+        }, 5000);
+    };
+
+    const showSuccess = ({ message }) => {
+        setSuccess(message);
+        setTimeout(() => {
+            setSuccess(null);
+        }, 5000);
+    };
 
     const saveContact = (event) => {
-        console.log({ name, email, imageURL });
-        ContactsCollection.insert({ name, email, imageURL });
-        setName();
-        setEmail();
-        setImageURL();
+        Meteor.call("contacts.insert", { name, email, imageURL }, (errorResponse) => {
+            if (errorResponse) {
+                showError({ message: errorResponse.error });
+            } else {
+                setName();
+                setEmail();
+                setImageURL();
+                showSuccess({ message: "Contact saved successfully" });
+            }
+        });
     };
     return (
         <form className="mt-6">
+            {error && <ErrorAlert message={error} />}
+            {success && <SuccessAlert message={success} />}
             <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                     <label
